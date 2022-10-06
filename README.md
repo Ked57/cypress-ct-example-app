@@ -212,7 +212,7 @@ One of the advantages of Cypress Component Testing compared to E2E testing is it
 
 Most app have routing, localization, a css framework, and data fetching. So let's use react-i18next, react-router, talwindcss and react-query.
 
-You can find an example application with all of the files here, I'm not going to go into details of the implementation but it handles dark mode, translations and a few API calls so we can demonstrate what we need to make it work.
+You can find an example application with all of the files [here](https://github.com/Ked57/cypress-ct-example-app) to follow along, I'm not going to go into details of the implementation but it handles dark mode, translations and a few API calls so we can demonstrate what we need to make it work.
 
 Let's start with the simple mount test and see what happens
 
