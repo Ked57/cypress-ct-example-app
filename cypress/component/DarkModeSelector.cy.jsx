@@ -2,9 +2,23 @@ import { useState } from "react";
 import { DarkModeSelector } from "../../src/components/DarkModeSelector";
 import { DarkModeProvider } from "../../src/utils/useDarkMode";
 
-const initWrapper = (initialValue, props) => {
+const DarkModeWrapper = ({ children, initialValue }) => {
+  const [darkMode, setDarkMode] = useState(initialValue || false);
+  return (
+    <DarkModeProvider
+      value={{
+        darkMode,
+        setDarkMode,
+      }}
+    >
+      {children}
+    </DarkModeProvider>
+  );
+};
+
+const initDarkModeWrapper = () => {
   const setDarkModeSpy = cy.spy();
-  const ComboboxWrapper = () => {
+  const DarkModeWrapper = ({ children, initialValue }) => {
     const [darkMode, setDarkMode] = useState(initialValue);
     return (
       <DarkModeProvider
@@ -16,48 +30,67 @@ const initWrapper = (initialValue, props) => {
           },
         }}
       >
-        <DarkModeSelector {...props} />
+        {children}
       </DarkModeProvider>
     );
   };
-  return [setDarkModeSpy, ComboboxWrapper];
+  return [setDarkModeSpy, DarkModeWrapper];
 };
 
 describe("<DarkModeSelector />", () => {
-  it("mounts", () => {
-    const [_, DarkModeSelector] = initWrapper(false);
-    cy.mount(<DarkModeSelector />);
-    cy.get("button").should("exist");
+  it("mounts with a wrapper", () => {
+    cy.mount(
+      <DarkModeWrapper>
+        <DarkModeSelector />
+      </DarkModeWrapper>
+    );
+    cy.contains("Switch to darkmode");
   });
   it("renders the 'Switch to lightmode' label when initiated with darkmode=true value", () => {
-    const [_, DarkModeSelector] = initWrapper(true);
-    cy.mount(<DarkModeSelector />);
-    cy.contains("Switch to lightmode").should("exist");
+    cy.mount(
+      <DarkModeWrapper initialValue={true}>
+        <DarkModeSelector />
+      </DarkModeWrapper>
+    );
+    cy.contains("Switch to lightmode");
   });
-  it("changes display value to 'Switch to lightmode' once clicked when initiated with darkmode=false value", () => {
-    const [_, DarkModeSelector] = initWrapper(false);
-    cy.mount(<DarkModeSelector />);
-    cy.get("button").click();
-    cy.contains("Switch to lightmode").should("exist");
+  it("renders the 'Switch to darkmode' label when initiated with darkmode=false value", () => {
+    cy.mount(
+      <DarkModeWrapper initialValue={false}>
+        <DarkModeSelector />
+      </DarkModeWrapper>
+    );
+    cy.contains("Switch to darkmode");
   });
-  it("changes context value to 'Switch to lightmode' once clicked when initiated with darkmode=false value", () => {
-    const [setDarkModeSpy, DarkModeSelector] = initWrapper(false);
-    cy.mount(<DarkModeSelector />);
+  it("mounts with a wrapper and a spy", () => {
+    const [setDarkModeSpy, DarkModeWrapper] = initDarkModeWrapper();
+    cy.mount(
+      <DarkModeWrapper initialValue={true}>
+        <DarkModeSelector />
+      </DarkModeWrapper>
+    );
+    cy.contains("Switch to lightmode");
+  });
+  it("changes context value to 'true' once clicked when initiated with darkmode=false value", () => {
+    const [setDarkModeSpy, DarkModeWrapper] = initDarkModeWrapper();
+    cy.mount(
+      <DarkModeWrapper initialValue={false}>
+        <DarkModeSelector />
+      </DarkModeWrapper>
+    );
     cy.get("button")
       .click()
       .then(() => expect(setDarkModeSpy).to.have.been.calledWith(true));
   });
-  it("changes display value to 'Switch to darkmode' once clicked when initiated with darkmode=true value", () => {
-    const [_, DarkModeSelector] = initWrapper(false);
-    cy.mount(<DarkModeSelector />);
-    cy.get("button").click();
-    cy.contains("Switch to lightmode").should("exist");
-  });
-  it("changes context value to 'Switch to darkmode' once clicked when initiated with darkmode=true value", () => {
-    const [setDarkModeSpy, DarkModeSelector] = initWrapper(false);
-    cy.mount(<DarkModeSelector />);
+  it("changes context value to 'false' once clicked when initiated with darkmode=true value", () => {
+    const [setDarkModeSpy, DarkModeWrapper] = initDarkModeWrapper();
+    cy.mount(
+      <DarkModeWrapper initialValue={true}>
+        <DarkModeSelector />
+      </DarkModeWrapper>
+    );
     cy.get("button")
       .click()
-      .then(() => expect(setDarkModeSpy).to.have.been.calledWith(true));
+      .then(() => expect(setDarkModeSpy).to.have.been.calledWith(false));
   });
 });
