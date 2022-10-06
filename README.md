@@ -18,7 +18,7 @@ Components might need external dependencies, context, props, or anything really 
 
 This is a simple button which will toogle a darkMode context set somewhere else in your application, it calls the hook `useDarkMode` which is defined in another folder
 
-DarkModeSelector.tsx
+DarkModeSelector.jsx
 
 ```jsx
 import { useDarkMode } from "../utils/useDarkMode";
@@ -33,7 +33,7 @@ export const DarkModeSelector = () => {
 };
 ```
 
-useDarkMode.tsx
+useDarkMode.jsx
 
 ```jsx
 import { createContext, useContext } from "react";
