@@ -234,6 +234,7 @@ Result:
 
 We get a lot of errors related to hooks not used withing context providers, as seen in the last section. We could build wrappers like before, or we could try another approach ! Let's build a custom mount command:
 You can find more info/examples about custom mount commands [here](https://docs.cypress.io/guides/component-testing/custom-mount-react)
+
 cypress/support/component.jsx
 
 ```jsx
@@ -242,7 +243,7 @@ Cypress.Commands.add("mountApplication", (component, options = {}) => {
 });
 ```
 
-Cypress already imports a custome mount function `import { mount } from "cypress/react18";`, so we're going to use it for our own mount command. Note that you need to rename `component.js` to `component.jsx` otherwise cypress will fail because there is jsx code in the file.
+Cypress already imports a custom mount function `import { mount } from "cypress/react18";`, so we're going to use it for our own mount command. Note that you need to rename `component.js` to `component.jsx` otherwise cypress will fail because there is jsx code in the file.
 
 We can also define some options we might want to pass to the tests down the line:
 
