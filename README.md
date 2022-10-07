@@ -424,6 +424,6 @@ describe("<ProductsByCategoryPage />", () => {
 
 I hope this article was helpful, I tried to compile some of the hurdles I went through while learning Cypress Component Testing. The example app is not perfect but should help get an idea of how to test components and whole pages with this tool.
 
-I want to thanks the Cypress Team for helping me understanding this, you can join the discussions on [Discord](https://discord.com/invite/cMjUZg7) and all of the documentation [here](https://docs.cypress.io/) 
+I want to thanks the Cypress Team for helping me understanding this, you can join the discussions on [Discord](https://discord.com/invite/cMjUZg7) and go throught all of their documentation [here](https://docs.cypress.io/) 
 
 You can find me on [Github](https://github.com/Ked57) and on [Twitter](https://twitter.com/ClementFassot)
