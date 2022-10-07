@@ -1,8 +1,8 @@
 Table of contents
 
-- [What is Cypress Component Testing ?](#what-is-cypress-component-testing--)
-- [Wrapping components to provide their external dependencies](#wrapping-components-to-provide-their-external-dependencies-)
-- [Applying this concept to entire pages](#applying-this-concept-to-entire-pages--)
+- [What is Cypress Component Testing ? ](#what-is-cypress-component-testing--)
+- [Wrapping components to provide their external dependencies ](#wrapping-components-to-provide-their-external-dependencies-)
+- [Applying this concept to entire pages](#applying-this-concept-to-entire-pages)
 
 ## What is Cypress Component Testing ? <a name="what-is-cypress"></a>
 
@@ -93,7 +93,7 @@ describe("<DarkModeSelector />", () => {
 
 Good ! Now your test is passing and your component mounts.
 
-Now you might want to pass an initial value to your context, so you can pass a setting set somewhere else in your application:
+At the moment you might want to pass an initial value to your context, so you can pass a setting set somewhere else in your application:
 
 We can add an initialValue to the props of the wrapper
 
@@ -134,7 +134,7 @@ describe("<DarkModeSelector />", () => {
 });
 ```
 
-Right now we're only checking that the component is reacting properly to changes to the dark mode context, but how do you test that the button calls `setDarkMode` properly ?
+This is a good start, however we're only checking that the component is reacting properly to changes to the dark mode context, but how do you test that the button calls `setDarkMode` properly ?
 Cypress has an utility called "spy", you can find more info [here](https://docs.cypress.io/guides/guides/stubs-spies-and-clocks#Spies) and [here](https://docs.cypress.io/api/commands/spy), it allows you to capture and then assert that a function was called. Let's see how we can use it in component tests together with our wrapper:
 
 DarkModeSelector.cy.jsx
@@ -204,7 +204,7 @@ it("changes context value to 'false' once clicked when initiated with darkmode=t
 });
 ```
 
-And now we can be fairly confident that when we click on the button, the context will be updated with the new value !
+After that we can be fairly confident that when we click on the button, the context will be updated with the new value !
 
 ## Applying this concept to entire pages<a name="applying-this-concept-to-entire-pages"></a>
 
@@ -314,7 +314,7 @@ export const ApplicationStub = ({ children, darkMode, lang, loader }) => {
 };
 ```
 
-Now we can easily mount our whole page and pass default arguments like dark mode or language
+Here we can easily mount our whole page and pass default arguments like dark mode or language
 
 ProductsByCategoryPage.cs.jsx
 
